@@ -33,13 +33,28 @@
                HorizontalAlignment="Center" 
                Margin="0,32,0,0"
                VerticalAlignment="Top" />
-        
+
         <CheckBox Content="Kuk"
-                  x:Name="Check"
-                  IsChecked="{Binding Stav, Mode=TwoWay}"
+                  x:Name="Check1"
                   HorizontalAlignment="Left" 
                   Margin="711,93,0,0"
                   VerticalAlignment="Top"/>
+
+        <CheckBox Content="Kuk2"
+                  Width="50"
+                  Height="25"
+                  x:Name="Check2"
+                  Margin="651,0,0,316" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+
+        <ComboBox HorizontalAlignment="Left"
+                  Margin="651,32,0,0"
+                  x:Name="Pozadi"
+                  SelectionChanged="Pozadi_SelectionChanged"
+                  VerticalAlignment="Top"
+                  Width="120"/>
+
+
+
 
 
 

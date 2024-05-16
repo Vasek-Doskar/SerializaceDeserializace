@@ -4,6 +4,7 @@ using Microsoft.Win32;
 using System.Diagnostics;
 using System.Windows.Media;
 using System.Xml.Serialization;
+using System.Windows.Controls;
 namespace WpfApp4
 {
     /// <summary>
@@ -11,13 +12,11 @@ namespace WpfApp4
     /// </summary>
     public partial class MainWindow : Window
     {
-        public bool Stav { get; set; }
+
         public MainWindow()
         {
-
             InitializeComponent();
-            DataContext = this;
-
+            Pozadi.ItemsSource = new List<string>() { "Modrá", "Zelená", "Bílá" };
             this.Closing += (s, e) => Serializuj();
         }
 
@@ -51,7 +50,9 @@ namespace WpfApp4
         private void Serializuj()
         {
             Settings set = new();
-            set.State = Stav;
+            set.State1 = (bool)Check1.IsChecked;
+            set.State2 = (bool)Check2.IsChecked;
+            set.Index = Pozadi.SelectedIndex;
 
             XmlSerializer writer = new(typeof(Settings));
             string CestaNastaveni = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "wpfinit.txt");
@@ -65,6 +66,17 @@ namespace WpfApp4
         private void Deserializuj()
         {
             XmlSerializer reader = new(typeof(Settings));
+        }
+
+        private void Pozadi_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            this.Background = ((ComboBox)sender).SelectedItem switch
+            {
+                "Modrá" => new SolidColorBrush(Colors.LightSkyBlue),
+                "Zelená" => new SolidColorBrush(Colors.LightGreen),
+                "Bílá" => new SolidColorBrush(Colors.White),
+                _ => new SolidColorBrush(Colors.White)
+            };
         }
     }
 }
